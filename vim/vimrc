@@ -1,0 +1,26 @@
+set nocompatible
+filetype off
+
+" vim-plug
+call plug#begin('~/.vim/plugged')
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdtree'
+Plug 'altercation/vim-colors-solarized'
+Plug 'ctrlpvim/ctrlp.vim'
+
+call plug#end()
+
+filetype plugin indent on
+runtime! plugin/*.vim
+
+" Airline
+let g:airline_powerline_fonts = 1
+let g:airline_section_z = '%3p%% %l:%02c'
+
+" Solarized
+set background=dark
+let g:solarized_termcolors = 256
+colorscheme solarized
