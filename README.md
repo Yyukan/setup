@@ -133,6 +133,11 @@ jenv versions
 brew install --cask claude-code
 ```
 
+**Copilot CLI:**
+```
+brew install --cask copilot-cli
+```
+
 **Gemini CLI:**
 ```
 brew install gemini-cli
