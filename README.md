@@ -156,5 +156,6 @@ npm install -g @mariozechner/pi-coding-agent \
   @termly-dev/cli \
   pi-mcp-adapter \
   pi-subagents \
-  pi-web-access
+  pi-web-access \
+  pi-powerline-footer
 ```
