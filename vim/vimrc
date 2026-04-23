@@ -16,11 +16,18 @@ call plug#end()
 filetype plugin indent on
 runtime! plugin/*.vim
 
+syntax enable
+
 " Airline
+let g:airline_theme = 'solarazed'
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3p%% %l:%02c'
+let g:airline#extensions#whitespace#enabled = 0
 
 " Solarized
 set background=dark
-let g:solarized_termcolors = 256
 colorscheme solarized
+
+" Nerdtree
+let NERDTreeWinSize = 40
+let NERDTreeShowHidden = 1
