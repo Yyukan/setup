@@ -17,7 +17,7 @@ filetype plugin indent on
 runtime! plugin/*.vim
 
 " Airline
-let g:airline_theme = 'solarazed'
+let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = '%3p%% %l:%02c'
 let g:airline#extensions#whitespace#enabled = 0
