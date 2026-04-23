@@ -44,7 +44,7 @@ set ttimeoutlen=20
 set notimeout
 
 " Mouse support
-set ttymouse=xterm2
+set ttymouse=sgr
 set mouse=a
 
 " Use system clipboard
