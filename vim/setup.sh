@@ -11,7 +11,7 @@ if [ ! -f ~/.vim/autoload/plug.vim ]; then
 fi
 
 # Create vim dirs
-mkdir -p ~/.vim/{plugged,backup,swap,undo,plugin}
+mkdir -p ~/.vim/plugged ~/.vim/backup ~/.vim/swap ~/.vim/undo ~/.vim/plugin
 
 # Link vimrc and plugins
 test -f ~/.vimrc && mv ~/.vimrc ~/.vimrc.bak
