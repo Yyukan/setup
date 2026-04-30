@@ -22,9 +22,11 @@ Install Homebrew:
 ```shell
 # ZSh, terminal & core utils
 brew install zsh-completions zsh-syntax-highlighting fzf tmux midnight-commander coreutils
+brew install yazi ffmpeg-full sevenzip jq poppler fd ripgrep zoxide resvg imagemagick-full font-symbols-only-nerd-font
+brew link ffmpeg-full imagemagick-full -f --overwrite
 
 # Other utils
-brew install git gh lazygit ifstat telnet htop watch wget jq httpie fd ripgrep tree nmap mactop
+brew install git gh lazygit ifstat telnet htop watch wget httpie fd ripgrep tree nmap mactop
 
 # Docker
 brew install colima docker docker-compose docker-completion
