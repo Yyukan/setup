@@ -65,6 +65,7 @@ Then: `Profiles -> Colors -> Color Presets... -> Import... -> Solarized Dark`
 Install [Ubuntu Nerd Mono](https://www.nerdfonts.com/font-downloads) via brew:
 ```
 brew install --cask font-ubuntu-nerd-font
+brew install --cask font-ubuntu-mono-nerd-font
 ```
 
 ## Vim
