@@ -127,6 +127,7 @@ jenv add /opt/homebrew/Cellar/openjdk@25/libexec/openjdk.jdk/Contents/Home
 jenv global 21
 
 jenv versions
+jenv enable-plugin export
 ```
 
 ## Agents
