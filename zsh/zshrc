@@ -74,3 +74,13 @@ alias dkc='dkkill; dkrm'
 # Syntax highlighting (brew-prefix aware for Intel and Apple Silicon)
 #
 source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+#
+# Agents
+#
+export OPENCODE_API_KEY=""
+
+#
+# PI
+#
+export REVDIFF_THEME="solarized-dark"
