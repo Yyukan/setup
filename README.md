@@ -24,7 +24,7 @@ Install Homebrew:
 brew install zsh-completions zsh-syntax-highlighting fzf tmux midnight-commander coreutils
 
 # Other utils
-brew install gh ifstat telnet htop watch wget jq httpie fd ripgrep tree nmap
+brew install git gh ifstat telnet htop watch wget jq httpie fd ripgrep tree nmap
 
 # Docker
 brew install colima docker docker-compose docker-completion
