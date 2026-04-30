@@ -119,9 +119,9 @@ tmux ls && read tmux_session && tmux attach -t ${tmux_session:-default} || tmux 
 
 Register installed JDKs with jenv and set default:
 ```
-jenv add /usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
-jenv add /usr/local/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home
-jenv add /usr/local/opt/openjdk@25/libexec/openjdk.jdk/Contents/Home
+jenv add /opt/homebrew/Cellar/openjdk@17/libexec/openjdk.jdk/Contents/Home
+jenv add /opt/homebrew/Cellar/openjdk@21/libexec/openjdk.jdk/Contents/Home
+jenv add /opt/homebrew/Cellar/openjdk@25/libexec/openjdk.jdk/Contents/Home
 jenv global 21
 
 jenv versions
