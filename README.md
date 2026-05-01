@@ -164,5 +164,11 @@ npm install -g @mariozechner/pi-coding-agent \
   pi-powerline-footer \
   pi-tool-display
 
+pi install npm:pi-mcp-adapter
+pi install npm:pi-subagents
+pi install npm:pi-web-access
+pi install npm:pi-powerline-footer
+pi install npm:pi-tool-display
+
 pi install https://github.com/umputun/revdiff
 ```
