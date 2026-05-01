@@ -158,11 +158,6 @@ brew install --cask opencode-desktop
 npm install -g @mariozechner/pi-coding-agent \
   @fission-ai/openspec \
   @termly-dev/cli \
-  pi-mcp-adapter \
-  pi-subagents \
-  pi-web-access \
-  pi-powerline-footer \
-  pi-tool-display
 
 pi install npm:pi-mcp-adapter
 pi install npm:pi-subagents
