@@ -1,0 +1,1 @@
+-- Solarized is loaded via lazy.nvim plugin config

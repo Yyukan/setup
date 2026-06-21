@@ -7,6 +7,7 @@
 - [Color Scheme](#color-scheme)
 - [Fonts](#fonts)
 - [Vim](#vim)
+- [Neovim](#neovim)
 - [Tmux](#tmux)
 - [iTerm2](#iterm2)
 - [Java](#java)
@@ -68,6 +69,24 @@ Install [Ubuntu Nerd Mono](https://www.nerdfonts.com/font-downloads) via brew:
 ```
 brew install --cask font-ubuntu-nerd-font
 brew install --cask font-ubuntu-mono-nerd-font
+```
+
+## Neovim
+
+Config lives in [`nvim/`](nvim/).
+
+```sh
+# Backup existing config
+mv ~/.config/nvim ~/.config/nvim.bak
+
+# Remove old Neovim data (optional)
+rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim
+
+# Copy nvim config
+cp -r nvim ~/.config/nvim
+
+# Start Neovim to bootstrap plugin manager
+nvim
 ```
 
 ## Vim
