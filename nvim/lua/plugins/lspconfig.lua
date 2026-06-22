@@ -25,7 +25,6 @@ mason_lspconfig.setup({
   ensure_installed = {
     "lua_ls",
     "ts_ls",
-    "pyright",
     "rust_analyzer",
   },
   automatic_installation = true,
