@@ -4,6 +4,9 @@ local sorters = require("telescope.sorters")
 
 telescope.setup({
   defaults = {
+    preview = {
+        treesitter = false,
+    },
     vimgrep_arguments = {
       "rg",
       "--color=never",
@@ -28,18 +31,7 @@ telescope.setup({
     },
   },
   pickers = {
-    find_files = {
-      theme = "dropdown",
-      previewer = false,
-    },
   },
   extensions = {},
   sorters = sorters,
-  layout_config = {
-    width = 0.75,
-    height = 0.85,
-    vertical = {
-      mirror = false,
-    },
-  },
 })
