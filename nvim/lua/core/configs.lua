@@ -46,6 +46,9 @@ vim.opt.clipboard = "unnamedplus"
 -- Shorter messages
 vim.opt.shortmess:append("c")
 
+-- Disable whitespace indicators
+vim.opt.list = false
+
 -- Indent Settings
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
