@@ -32,9 +32,9 @@ vim.opt.mousefocus = true
 
 -- Line Numbers
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.wo.number = true
-vim.wo.relativenumber = true
+vim.wo.relativenumber = false
 
 -- Splits
 vim.opt.splitbelow = true
@@ -66,5 +66,4 @@ vim.opt.fillchars = {
     foldclose = "▸"
 }
 
-vim.cmd([[highlight clear LineNr]])
 vim.cmd([[highlight clear SignColumn]])
