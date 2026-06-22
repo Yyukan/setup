@@ -18,3 +18,16 @@ vim.keymap.set('n', '<leader>tf', ':NvimTreeFocus<CR>')
 vim.keymap.set('n', '<leader>f', '<cmd>Telescope find_files<CR>')
 vim.keymap.set('n', '<leader>g', '<cmd>Telescope live_grep<CR>')
 vim.keymap.set('n', '<leader>b', '<cmd>Telescope buffers<CR>')
+
+-- Neogit
+vim.keymap.set('n', '<leader>ng', '<cmd>Neogit<CR>')
+
+-- Diffview
+vim.keymap.set('n', '<leader>dv', '<cmd>DiffviewOpen<CR>')
+vim.keymap.set('n', '<leader>dc', '<cmd>DiffviewClose<CR>')
+
+-- Gitsigns
+vim.keymap.set('n', '<leader>hs', '<cmd>Gitsigns stage_hunk<CR>')
+vim.keymap.set('n', '<leader>hr', '<cmd>Gitsigns reset_hunk<CR>')
+vim.keymap.set('n', '<leader>hp', '<cmd>Gitsigns preview_hunk<CR>')
+vim.keymap.set('n', '<leader>hb', '<cmd>Gitsigns blame_line<CR>')

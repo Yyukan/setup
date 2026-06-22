@@ -59,4 +59,34 @@ require("lazy").setup({
     lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
+
+  -- diffview
+  {
+    "sindrets/diffview.nvim",
+    lazy = false,
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  -- gitsigns
+  {
+    "lewis6991/gitsigns.nvim",
+    lazy = false,
+    config = function()
+      require("gitsigns").setup()
+    end,
+  },
+
+  -- neogit
+  {
+    "NeogitOrg/neogit",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "sindrets/diffview.nvim",
+    },
+    config = function()
+      require("neogit").setup({})
+    end,
+  },
 })
