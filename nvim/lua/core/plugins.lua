@@ -60,6 +60,54 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
+  -- mason (LSP installer)
+  {
+    "williamboman/mason.nvim",
+    lazy = false,
+    config = function()
+      require("mason").setup()
+    end,
+  },
+
+  {
+    "williamboman/mason-lspconfig.nvim",
+    lazy = false,
+    dependencies = { "williamboman/mason.nvim" },
+  },
+
+  -- nvim-lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    lazy = false,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+  },
+
+  -- nvim-cmp (completion)
+  {
+    "hrsh7th/nvim-cmp",
+    lazy = false,
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+    },
+  },
+
+  -- which-key
+  {
+    "folke/which-key.nvim",
+    lazy = false,
+    config = function()
+      require("which-key").setup()
+    end,
+  },
+
   -- diffview
   {
     "sindrets/diffview.nvim",
