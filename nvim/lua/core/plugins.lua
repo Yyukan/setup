@@ -52,4 +52,11 @@ require("lazy").setup({
     lazy = false,
     build = ":TSUpdate",
   },
+
+  -- lualine
+  {
+    "nvim-lualine/lualine.nvim",
+    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
 })
