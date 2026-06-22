@@ -11,7 +11,7 @@ vim.opt.undofile = true
 vim.opt.swapfile = false
 vim.opt.encoding = "utf-8"
 vim.opt.cursorline = true
-vim.opt.fileformat = "unix"
+vim.opt_global.fileformat = "unix"
 
 -- Nvim-Tree
 vim.g.loaded_netrw = 1
