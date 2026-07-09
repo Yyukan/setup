@@ -10,6 +10,9 @@
 - [Neovim](#neovim)
 - [Tmux](#tmux)
 - [iTerm2](#iterm2)
+- [Ghostty](#ghostty)
+- [cmux](#cmux)
+- [Herdr](#herdr)
 - [Java](#java)
 - [Agents](#agents)
 
@@ -134,6 +137,28 @@ Profiles -> Text -> Font -> UbuntuMono Nerd Font Mono -> Regular - 16
 Profiles -> Text -> Text Rendering -> Draw bold text in bright colors (Check)
 Profiles -> PROFILE -> Command > Send text at start
 tmux ls && read tmux_session && tmux attach -t ${tmux_session:-default} || tmux new -s ${tmux_session:-default}
+```
+
+## Ghostty
+
+```
+brew install --cask ghostty
+```
+
+Copy [`cmux/ghostty.conf`](cmux/ghostty.conf) to `~/.config/ghostty/config`
+
+## cmux
+
+```
+brew install --cask cmux
+```
+
+Copy [`cmux/cmux.json`](cmux/cmux.json) to `~/.config/cmux/cmux.json`
+
+## Herdr
+
+```
+brew install herdr
 ```
 
 ## Java
