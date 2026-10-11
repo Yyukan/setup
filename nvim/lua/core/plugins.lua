@@ -75,6 +75,28 @@ require("lazy").setup({
     dependencies = { "williamboman/mason.nvim" },
   },
 
+  -- Non-LSP toolchain (gopls comes from mason-lspconfig above)
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    lazy = false,
+    dependencies = { "williamboman/mason.nvim" },
+    config = function()
+      require("mason-tool-installer").setup({
+        ensure_installed = {
+          "delve",       -- debugger used by nvim-dap-go
+          "goimports",   -- adds/removes imports on save
+          "gofumpt",     -- stricter gofmt, used via gopls and conform
+          "gotests",     -- table-driven test scaffolds
+          "gomodifytags", -- struct tags
+          "stylua",
+          "shfmt",
+        },
+        auto_update = false,
+        run_on_start = true,
+      })
+    end,
+  },
+
   -- nvim-lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -97,6 +119,31 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
+  },
+
+  -- conform (format on save; see lua/plugins/conform.lua)
+  {
+    "stevearc/conform.nvim",
+    lazy = false,
+  },
+
+  -- Debug Adapter Protocol
+  {
+    "mfussenegger/nvim-dap",
+    lazy = false,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    lazy = false,
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
+  },
+  {
+    "leoluz/nvim-dap-go",
+    lazy = false,
+    dependencies = { "mfussenegger/nvim-dap" },
   },
 
   -- which-key

@@ -99,6 +99,59 @@ vim-plug, then symlinks for vimrc and the four plugin configs in `vim/plugin/`. 
 
 `~/.config/nvim` is replaced with a symlink to `nvim/`. Old config is backed up to `~/.config/nvim.bak`. Open nvim once to bootstrap the plugin manager.
 
+Requires **Neovim 0.11+** (verified on 0.12.6). The config uses the native
+`vim.lsp.config()` / `vim.lsp.enable()` API and the rewritten (v2)
+`nvim-treesitter`, so neither `require('lspconfig')` handlers nor
+`nvim-treesitter`'s old `ensure_installed` / `highlight` options apply.
+
+Everything below is installed on first start by mason — no manual
+`go install` / `npm install` step:
+
+| Provider                | Installs                                                                 |
+|-------------------------|--------------------------------------------------------------------------|
+| `mason-lspconfig`       | `gopls`, `lua_ls`, `rust_analyzer`                                        |
+| `mason-tool-installer`  | `delve`, `goimports`, `gofumpt`, `gotests`, `gomodifytags`, `stylua`, `shfmt` |
+| `nvim-treesitter`       | parsers incl. `go`, `gomod`, `gowork`, `gosum` (needs `tree-sitter-cli` + a C compiler) |
+
+Layout of the Go-related pieces:
+
+| File                         | Responsibility                                                    |
+|------------------------------|-------------------------------------------------------------------|
+| `lua/plugins/lspconfig.lua`  | wildcard capabilities, `LspAttach` keymaps, diagnostics UI, gopls settings (gofumpt, staticcheck, analyses, inlay hints) |
+| `lua/plugins/treesitter.lua` | parsers plus the highlighting and folding that v2 no longer enables on its own |
+| `lua/plugins/conform.lua`    | format on save: `goimports` then `gofumpt`                        |
+| `lua/plugins/go.lua`         | `:Go*` commands, quickfix parsing, `<leader>G` keymaps            |
+| `lua/plugins/dap.lua`        | `nvim-dap` + `nvim-dap-ui` + `nvim-dap-go`, `<leader>D` keymaps   |
+| `after/ftplugin/go.lua`      | tabs (`expandtab` off), matching `gofmt`                          |
+
+Go commands (also available for any Go project on the machine):
+
+| Command                | Runs                                              |
+|------------------------|---------------------------------------------------|
+| `:GoBuild`             | `go build ./...`                                  |
+| `:GoVet`               | `go vet ./...`                                    |
+| `:GoTest`              | `go test ./...`                                   |
+| `:GoTestFunc`          | `go test -run '^Name$' .` for the function under the cursor |
+| `:GoCoverage`          | `go test -cover ./...`                            |
+| `:GoRun`               | `go run .` (pass a target: `:GoRun ./cmd/server`) |
+| `:GoTidy`              | `go mod tidy`                                     |
+| `:GoGenerateTests`     | `gotests -all -w` for the current file            |
+| `:GoAddTags`           | `gomodifytags -add-tags json,yaml`                |
+| `:GoToggleTest`        | switch between `foo.go` and `foo_test.go`         |
+| `:GoRestartLsp`        | restart `gopls`                                   |
+
+Output lands in the quickfix list (`:copen`). The frequently used ones are bound
+to `<leader>Gb` build, `<leader>Gr` run, `<leader>Gt` test the package tree,
+`<leader>Gf` test the enclosing function, `<leader>Gv` vet, `<leader>Gc`
+coverage, `<leader>Gm` mod tidy, `<leader>Gg` generate tests, `<leader>Ga` add
+struct tags, `<leader>GT` toggle test file, `<leader>GR` restart gopls.
+Debugging lives under `<leader>D` (`b` breakpoint, `c` continue, `t` nearest
+test, `u` UI, `e` eval), because `<leader>g` is live grep, `<leader>d` is the
+diagnostic float and `<leader>dc` closes Diffview.
+
+`lazy-lock.json` is intentionally not tracked: plugin versions are resolved on
+install.
+
 ### Java
 
 `openjdk@21` and `openjdk@25` are installed via brew and registered with jenv. Default is 21.
