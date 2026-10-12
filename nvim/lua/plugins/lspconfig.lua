@@ -75,10 +75,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>ld", telescope("diagnostics", "Diagnostics: all"), "Diagnostics: picker")
     map("n", "<leader>ls", telescope("lsp_document_symbols", "Symbols: document"), "Symbols: document")
 
-    -- Inlay hints: gopls and rust-analyzer both support them.
+    -- Inlay hints: gopls and rust-analyzer both support them. Off by default to
+    -- keep the buffer free of virtual text; <leader>lh turns them on per buffer.
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
     if client and client:supports_method("textDocument/inlayHint") then
-      vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+      vim.lsp.inlay_hint.enable(false, { bufnr = ev.buf })
       map("n", "<leader>lh", function()
         local buf = vim.api.nvim_get_current_buf()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = buf }), { bufnr = buf })

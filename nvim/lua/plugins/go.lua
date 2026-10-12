@@ -148,6 +148,85 @@ go_cmd("GoRun", function(args)
   run({ "go", "run", target }, "go run " .. target)
 end)
 
+--- Show text in a bottom split that behaves like the quickfix window:
+--- fixed height, scratch buffer, closes on <Esc> or q.
+---@param title string
+---@param lines string[]
+local function output_split(title, lines)
+  -- Reuse the panel if it is already open, so repeated runs do not stack splits.
+  local target
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.b[vim.api.nvim_win_get_buf(win)].go_output_panel then
+      target = win
+      break
+    end
+  end
+
+  if target then
+    vim.api.nvim_set_current_win(target)
+  else
+    vim.cmd("botright 12split")
+    target = vim.api.nvim_get_current_win()
+  end
+
+  local buf = vim.api.nvim_create_buf(false, true)
+  vim.api.nvim_win_set_buf(target, buf)
+
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.b[buf].go_output_panel = true
+  vim.bo[buf].buftype = "nofile"
+  vim.bo[buf].bufhidden = "wipe"
+  vim.bo[buf].swapfile = false
+  vim.bo[buf].modifiable = false
+
+  vim.api.nvim_win_set_height(target, math.max(math.min(#lines + 1, 20), 5))
+  vim.wo[target].number = false
+  vim.wo[target].relativenumber = false
+  vim.wo[target].signcolumn = "no"
+  vim.wo[target].wrap = false
+  vim.wo[target].winfixheight = true
+  vim.wo[target].winbar = title
+
+  local win = target
+  for _, key in ipairs({ "q", "<Esc>" }) do
+    vim.keymap.set("n", key, function()
+      if vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_win_close(win, true)
+      end
+    end, { buffer = buf, nowait = true, silent = true })
+  end
+end
+
+--- Build, then run, showing combined output in a bottom split.
+--- Stops at the build step if compilation fails.
+local function build_and_run()
+  local cwd = project_root()
+  vim.notify("go build && go run .", vim.log.levels.INFO)
+
+  vim.system({ "go", "build", "./..." }, { cwd = cwd, text = true }, vim.schedule_wrap(function(build)
+    if (build.code or 0) ~= 0 then
+      local output = (build.stdout or "") .. (build.stderr or "")
+      local items = to_quickfix(output, cwd)
+      vim.fn.setqflist({}, " ", { title = "go build ./...", items = items })
+      vim.cmd("copen")
+      return
+    end
+
+    vim.system({ "go", "run", "." }, { cwd = cwd, text = true }, vim.schedule_wrap(function(out)
+      local output = (out.stdout or "") .. (out.stderr or "")
+      local lines = vim.split(output:gsub("%s+$", ""), "\n", { plain = true })
+      if #lines == 1 and lines[1] == "" then
+        lines = { "(no output)" }
+      end
+      lines[#lines + 1] = ""
+      lines[#lines + 1] = ("-- exit %d -- press q or <Esc> to close"):format(out.code or 0)
+      output_split(" go run . ", lines)
+    end))
+  end))
+end
+
+go_cmd("GoRunSplit", build_and_run)
+
 go_cmd("GoTidy", function()
   run({ "go", "mod", "tidy" }, "go mod tidy")
 end)
@@ -213,6 +292,7 @@ end
 
 map("<leader>Gb", "<cmd>GoBuild<CR>", "Go: build")
 map("<leader>Gr", "<cmd>GoRun<CR>", "Go: run")
+map("<leader>GG", "<cmd>GoRunSplit<CR>", "Go: build + run in split")
 map("<leader>Gt", "<cmd>GoTest<CR>", "Go: test package tree")
 map("<leader>Gf", "<cmd>GoTestFunc<CR>", "Go: test enclosing function")
 map("<leader>Gv", "<cmd>GoVet<CR>", "Go: vet")

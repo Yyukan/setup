@@ -117,10 +117,10 @@ Layout of the Go-related pieces:
 
 | File                         | Responsibility                                                    |
 |------------------------------|-------------------------------------------------------------------|
-| `lua/plugins/lspconfig.lua`  | wildcard capabilities, `LspAttach` keymaps, diagnostics UI, gopls settings (gofumpt, staticcheck, analyses, inlay hints) |
+| `lua/plugins/lspconfig.lua`  | wildcard capabilities, `LspAttach` keymaps, diagnostics UI, gopls settings (gofumpt, staticcheck, analyses, inlay hints off by default) |
 | `lua/plugins/treesitter.lua` | parsers plus the highlighting and folding that v2 no longer enables on its own |
 | `lua/plugins/conform.lua`    | format on save: `goimports` then `gofumpt`                        |
-| `lua/plugins/go.lua`         | `:Go*` commands, quickfix parsing, `<leader>G` keymaps            |
+| `lua/plugins/go.lua`         | `:Go*` commands, quickfix parsing, output split, `<leader>G` keymaps |
 | `lua/plugins/dap.lua`        | `nvim-dap` + `nvim-dap-ui` + `nvim-dap-go`, `<leader>D` keymaps   |
 | `after/ftplugin/go.lua`      | tabs (`expandtab` off), matching `gofmt`                          |
 
@@ -134,6 +134,7 @@ Go commands (also available for any Go project on the machine):
 | `:GoTestFunc`          | `go test -run '^Name$' .` for the function under the cursor |
 | `:GoCoverage`          | `go test -cover ./...`                            |
 | `:GoRun`               | `go run .` (pass a target: `:GoRun ./cmd/server`) |
+| `:GoRunSplit`          | `go build ./...` then `go run .`, output in a bottom split |
 | `:GoTidy`              | `go mod tidy`                                     |
 | `:GoGenerateTests`     | `gotests -all -w` for the current file            |
 | `:GoAddTags`           | `gomodifytags -add-tags json,yaml`                |
@@ -145,6 +146,15 @@ to `<leader>Gb` build, `<leader>Gr` run, `<leader>Gt` test the package tree,
 `<leader>Gf` test the enclosing function, `<leader>Gv` vet, `<leader>Gc`
 coverage, `<leader>Gm` mod tidy, `<leader>Gg` generate tests, `<leader>Ga` add
 struct tags, `<leader>GT` toggle test file, `<leader>GR` restart gopls.
+
+`<leader>GG` (`:GoRunSplit`) is the exception: it builds first and, when that
+succeeds, shows `go run .` output in a reusable bottom split that closes on `q`
+or `<Esc>`. A failing build still falls back to the quickfix list so the
+`file:line` entries stay jumpable.
+
+Inlay hints are **off by default** so buffers stay free of virtual text;
+`<leader>lh` toggles them per buffer.
+
 Debugging lives under `<leader>D` (`b` breakpoint, `c` continue, `t` nearest
 test, `u` UI, `e` eval), because `<leader>g` is live grep, `<leader>d` is the
 diagnostic float and `<leader>dc` closes Diffview.
